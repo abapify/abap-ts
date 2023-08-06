@@ -1,0 +1,11 @@
+{
+    "name": "abap",
+    "devDependencies": {
+        "@nx/js": "^16.6.0",
+        "nx": "16.6.0",
+        "nx-cloud": "^16.2.0"
+    },
+    "nx": {
+        "targets": {}
+    }
+}
