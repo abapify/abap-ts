@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@abap/decorators": ["decorators/src/index.ts"]
+      "@abap/decorators": ["packages/decorators/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
