@@ -1,6 +1,6 @@
 import { ExistingType, ExistingTypeInput } from './existing';
 
-const tests: [ExistingTypeInput, string][] = [
+export const tests: [ExistingTypeInput, string][] = [
   [{ t_string: { type: 'string' } }, 'types t_string type string'],
   [
     { t_string: { type: { line: { of: 'STRING_TT' } } } },
