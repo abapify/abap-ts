@@ -1,7 +1,7 @@
 import { BlockableMap } from './base/record';
 import { statementTypes } from './base/statementTypes';
 import { ExistingType, TypeLike } from './types/existing';
-import { AbapType, PredefinedType } from './types/predefined';
+import { PredefinedType, PredefinedTypeInput } from './types/predefined';
 
 type TypeInput = any;
 
@@ -20,12 +20,10 @@ export class Types extends BlockableMap<TypeInput> {
 
     return super.renderData(data);
   }
-  #isPredefinedAbapType(input: object): input is AbapType {
-    return input && !!(input as AbapType).abap_type;
+  #isPredefinedAbapType(input: object): input is PredefinedTypeInput {
+    return input && !!(input as PredefinedTypeInput).abap_type;
   }
   #isExistingType(input: object): input is TypeLike {
     return input && !!((input as TypeLike).type || (input as TypeLike).like);
   }
 }
-
-

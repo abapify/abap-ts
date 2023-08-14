@@ -1,6 +1,6 @@
 // Syntax
 
-import { BlockableStatement } from '../base/block';
+import { BlockableMap } from '../base/record';
 
 // existing type/data
 // TYPES dtype { {TYPE [LINE OF] type}
@@ -21,9 +21,9 @@ interface LineOf {
 
 export type TypeLike = Partial<Record<'type' | 'like', LineOf | string>>;
 
-export type ExistingTypeInput = Record<string, TypeLike>;
+export type ExistingTypeInput = TypeLike;
 
-export class ExistingType extends BlockableStatement<ExistingTypeInput> {
+export class ExistingType extends BlockableMap<ExistingTypeInput> {
   override statement = 'types';
 }
 
