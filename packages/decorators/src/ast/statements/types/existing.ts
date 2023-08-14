@@ -2,12 +2,20 @@
 
 import { BlockableStatement } from '../base/block';
 
+// existing type/data
 // TYPES dtype { {TYPE [LINE OF] type}
 //             | {LIKE [LINE OF] dobj}  }.
 
+// ref to existing type/existing data
+// TYPES ref_type { {TYPE REF TO type}
+//                | {LIKE REF TO dobj} }.
+
 interface LineOf {
-  line: {
+  line?: {
     of: string;
+  };
+  ref?: {
+    to: string;
   };
 }
 

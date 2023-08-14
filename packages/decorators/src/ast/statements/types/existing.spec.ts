@@ -7,6 +7,14 @@ export const tests: [ExistingTypeInput, string][] = [
     'types t_string type line of STRING_TT',
   ],
   [{ fork: { like: 'master' } }, 'types fork like master'],
+  [
+    { pointer: { type: { ref: { to: 'data' } } } },
+    'types pointer type ref to data',
+  ],
+  [
+    { pointer: { like: { ref: { to: 'data_ref' } } } },
+    'types pointer like ref to data_ref',
+  ],
 ];
 
 test('Existing type', () => {
