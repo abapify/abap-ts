@@ -14,10 +14,14 @@ export abstract class BlockableMap<
 > extends AbapStatement<ThisOrArrayOfThis<R>> {
   abstract statement: string;
 
-  renderRecord(data: P): string {
+  protected renderRecord(key: string, data: T) {
+    return `${key} ${this.renderData(data)}`;
+  }
+
+  #renderRecord(data: P): string {
     if (data) {
       return Object.entries(data)
-        .map(([key, data]) => `${key} ${this.renderData(data)}`)
+        .map(([key, data]) => this.renderRecord(key, data as T))
         .join(',/n');
     }
 
@@ -48,7 +52,7 @@ export abstract class BlockableMap<
     }
 
     return statement
-      .concat(records.length > 1 ? ': ' : ' ')
-      .concat(records.map((r) => this.renderRecord(r)).join(',\n'));
+      .concat(statement ? (records.length > 1 ? ': ' : ' ') : '')
+      .concat(records.map((r) => this.#renderRecord(r)).join(',\n'));
   }
 }

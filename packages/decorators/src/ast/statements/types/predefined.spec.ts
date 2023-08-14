@@ -1,6 +1,6 @@
-import { PredefinedType, PredefinedTypeInput } from './predefined';
+import { PredefinedType, PredefinedTypeData } from './predefined';
 
-export const tests: [PredefinedTypeInput, string][] = [
+export const tests: [PredefinedTypeData, string][] = [
   [{ t_string: { abap_type: 'string' } }, 'types t_string type string'],
   [{ char3: { abap_type: 'c', length: 3 } }, 'types char3 type c length 3'],
   [

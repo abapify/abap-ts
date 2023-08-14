@@ -18,4 +18,4 @@ export class PredefinedType extends BlockableMap<AbapType> {
   }
 }
 
-export type PredefinedTypeInput = PredefinedType['data'];
+export type PredefinedTypeData = PredefinedType['data'];

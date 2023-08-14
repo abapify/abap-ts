@@ -26,3 +26,5 @@ export type ExistingTypeInput = Record<string, TypeLike>;
 export class ExistingType extends BlockableStatement<ExistingTypeInput> {
   override statement = 'types';
 }
+
+export type ExistingTypeData = ExistingType['data'];

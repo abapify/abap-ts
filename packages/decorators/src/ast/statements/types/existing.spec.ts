@@ -11,6 +11,7 @@ export const tests: [ExistingTypeInput, string][] = [
     { pointer: { type: { ref: { to: 'data' } } } },
     'types pointer type ref to data',
   ],
+  [{ pointer: { type: 'ref to data' } }, 'types pointer type ref to data'],
   [
     { pointer: { like: { ref: { to: 'data_ref' } } } },
     'types pointer like ref to data_ref',

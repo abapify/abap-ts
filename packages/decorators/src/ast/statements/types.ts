@@ -27,3 +27,5 @@ export class Types extends BlockableMap<TypeInput> {
     return input && !!((input as TypeLike).type || (input as TypeLike).like);
   }
 }
+
+
