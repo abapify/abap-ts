@@ -22,6 +22,10 @@ export class Types extends BlockableMap<TypeInput> {
     if (this.#isExistingType(data)) {
       return new ExistingType().renderRecord(key, data);
     }
+    if (typeof data === 'string') {
+      return super.renderData({ types: { [key]: { type: data } } });
+    }
+    // return super.renderData({ [key]: data });
     throw 'Not supported';
   }
   #isPredefinedAbapType(input: object): input is PredefinedTypeInput {
