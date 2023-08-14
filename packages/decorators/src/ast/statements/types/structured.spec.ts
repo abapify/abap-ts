@@ -2,7 +2,7 @@ import { StructuredType, StructuredTypeData } from './structured';
 
 export const tests: [StructuredTypeData, string][] = [
   [
-    { struc_type: [{ t_string: { abap_type: 'string' } }] },
+    { struc_type: { components: [{ t_string: { abap_type: 'string' } }] } },
 
     [
       'types begin of struc_type.',

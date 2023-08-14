@@ -14,9 +14,7 @@ export abstract class BlockableMap<
 > extends AbapStatement<ThisOrArrayOfThis<R>> {
   abstract statement: string;
 
-  protected renderRecord(key: string, data: T) {
-    return `${key} ${this.renderData(data)}`;
-  }
+  abstract renderRecord(key: string, data: T): string;
 
   #renderRecord(data: P): string {
     if (data) {
@@ -51,8 +49,10 @@ export abstract class BlockableMap<
       records.push(...makeSingleRecord(this.data));
     }
 
-    return statement
-      .concat(statement ? (records.length > 1 ? ': ' : ' ') : '')
-      .concat(records.map((r) => this.#renderRecord(r)).join(',\n'));
+    return records.map((r) => this.#renderRecord(r)).join('.\n');
+
+    // return statement
+    //   .concat(statement ? (records.length > 1 ? ': ' : ' ') : '')
+    //   .concat(records.map((r) => this.#renderRecord(r)).join(',\n'));
   }
 }

@@ -11,12 +11,14 @@ import { Types } from '../types';
 
 export interface Component {}
 
-export type Components = Array<Component>;
+export interface StructuredTypeInput {
+  components: Array<Component>;
+}
 
-export class StructuredType extends BlockableMap<Components> {
+export class StructuredType extends BlockableMap<StructuredTypeInput> {
   override statement = '';
-  override renderRecord(key: string, data: Components): string {
-    const types = new Types(data);
+  override renderRecord(key: string, data: StructuredTypeInput): string {
+    const types = new Types(data.components);
 
     return [
       `types begin of ${key}`,
