@@ -1,8 +1,5 @@
-import { PredefinedTypeInput } from './predefined';
-import { ExistingTypeInput } from './existing';
 import { BlockableMap } from '../base/record';
-import { Types } from '../types';
-import { TableTypeInput } from './table';
+import { Types, TypesInput } from '../types';
 import { AbapStatement } from '../base/base';
 
 // 4. TYPES BEGIN OF struc_type.
@@ -19,12 +16,7 @@ export interface IncludeTypeInput {
   suffix?: string;
 }
 
-type ComponentType =
-  | ExistingTypeInput
-  | PredefinedTypeInput
-  | StructuredTypeInput
-  | TableTypeInput
-  | string;
+type ComponentType = TypesInput;
 type Component = Record<string, ComponentType>;
 type Components = Component | Array<Component | { include: IncludeTypeInput }>;
 
@@ -61,4 +53,4 @@ export class IncludeType extends AbapStatement<IncludeTypeInput> {
   }
 }
 
-export type StructuredTypeData = StructuredType['data'];
+export type StructuredTypeData = NonNullable<StructuredType['data']>;

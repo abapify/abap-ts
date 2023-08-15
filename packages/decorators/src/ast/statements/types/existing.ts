@@ -29,4 +29,4 @@ export class ExistingType extends BlockableMap<ExistingTypeInput> {
   }
 }
 
-export type ExistingTypeData = ExistingType['data'];
+export type ExistingTypeData = NonNullable<ExistingType['data']>;

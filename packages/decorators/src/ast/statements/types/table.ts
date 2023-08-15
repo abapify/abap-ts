@@ -1,6 +1,5 @@
 // Syntax
 
-import { promises } from 'dns';
 import { BlockableMap } from '../base/record';
 
 // TYPES table_type { {TYPE tabkind OF [REF TO] type}
@@ -123,7 +122,7 @@ export class TableType extends BlockableMap<TableTypeInput> {
 
 type keys = primary_key | tabkeys;
 
-export type TableTypeData = TableType['data'];
+export type TableTypeData = NonNullable<TableType['data']>;
 
 // TYPES - tabkind
 // ... { {[STANDARD] TABLE}

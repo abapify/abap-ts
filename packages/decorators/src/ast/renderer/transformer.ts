@@ -1,5 +1,5 @@
 import assert = require('assert');
-import { statements, shortcuts, StatementShortcutType } from '../statements';
+import { statements, shortcuts, StatementShortcutType } from './statements';
 import {
   AbapStatement,
   ConcreteAbapStatement,

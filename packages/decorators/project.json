@@ -1,31 +1,42 @@
 {
-  "name": "decorators",
+  "name": "ast",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/decorators/src",
+  "sourceRoot": "packages/ast/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/decorators",
-        "main": "packages/decorators/src/index.ts",
-        "tsConfig": "packages/decorators/tsconfig.lib.json",
-        "assets": ["packages/decorators/*.md"]
+        "outputPath": "dist/ast",
+        "main": "packages/ast/src/index.ts",
+        "tsConfig": "packages/ast/tsconfig.lib.json",
+        "assets": [
+          "packages/ast/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["packages/decorators/**/*.ts", "packages/decorators/package.json"]
+        "lintFilePatterns": [
+          "packages/ast/**/*.ts",
+          "packages/ast/package.json"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "packages/decorators/jest.config.ts",
+        "jestConfig": "packages/ast/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

@@ -1,9 +1,10 @@
-import { ConcreteAbapStatement, statementType } from './statements/base/abap';
-import { Skip } from './statements/skip';
-import { Types } from './statements/types';
-import { Write } from './statements/write';
+import { ConcreteAbapStatement, statementType } from '../statements/base/abap';
+import { Skip } from '../statements/skip';
+import { Types } from '../statements/types';
+import { Write } from '../statements/write';
+import { Interface } from '../statements/interface';
 
-const classes = [Write, Skip, Types] as Array<ConcreteAbapStatement>;
+const classes = [Write, Skip, Types, Interface] as Array<ConcreteAbapStatement>;
 
 export const statements = new Map(
   classes.map((statement) => [statement.type, statement])

@@ -9,7 +9,7 @@ export abstract class AbapStatement<DataType extends AbapStatemenData> {
   public get data() {
     return this.#data;
   }
-  constructor(data?: DataType) {
+  constructor(data: DataType) {
     if (data) {
       this.#data = data;
     }

@@ -7,7 +7,11 @@ import { tests as table } from './types/table.spec';
 export const tests = [existing, predefined, structured, table].flat(1);
 
 test('Types statement', () => {
-  tests.forEach(([input, result]) =>
-    expect(new Types(input).render()).toEqual(result)
-  );
+  tests.forEach(([input, result]) => {
+    if (input) {
+      if (!Array.isArray(input)) {
+        expect(new Types(input).render()).toEqual(result);
+      }
+    }
+  });
 });

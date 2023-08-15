@@ -1,5 +1,5 @@
 {
-  "name": "abap",
+  "name": "abapify",
   "devDependencies": {
     "@nx/eslint-plugin": "16.6.0",
     "@nx/jest": "16.6.0",

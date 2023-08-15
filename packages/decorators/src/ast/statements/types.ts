@@ -9,9 +9,14 @@ import {
 } from './types/structured';
 import { TableType, TableTypeInput } from './types/table';
 
-type TypeInput = any;
+export type TypesInput =
+  | ExistingTypeInput
+  | PredefinedTypeInput
+  | StructuredTypeInput
+  | TableTypeInput
+  | string;
 
-export class Types extends BlockableMap<TypeInput> {
+export class Types extends BlockableMap<TypesInput> {
   static override readonly type = statementTypes.types;
   statement = statementTypes.types;
   override renderRecord(key: string, data: any): string {
@@ -23,19 +28,19 @@ export class Types extends BlockableMap<TypeInput> {
     }
     // abap type, supports length and decimals
     if (this.#isPredefinedAbapType(data)) {
-      return new PredefinedType().renderRecord(key, data);
+      return new PredefinedType({ [key]: data }).render();
     }
     // structured type cannot be done on the data level, it needs whole record
     if (this.#isStructuredType(data)) {
-      return new StructuredType().renderRecord(key, data);
+      return new StructuredType({ [key]: data }).render();
     }
     //table type
     if (this.#isTableType(data)) {
-      return new TableType().renderRecord(key, data);
+      return new TableType({ [key]: data }).render();
     }
     // ref to existing type ( inlcuing line of or ref to)
     if (this.#isExistingType(data)) {
-      return new ExistingType().renderRecord(key, data);
+      return new ExistingType({ [key]: data }).render();
     }
     // return super.renderData({ [key]: data });
     throw 'Not supported';
@@ -59,3 +64,5 @@ export class Types extends BlockableMap<TypeInput> {
     );
   }
 }
+
+export type TypesData = NonNullable<Types['data']>;

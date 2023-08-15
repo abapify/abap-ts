@@ -1,4 +1,3 @@
-import { compileFunction } from 'vm';
 import { AbapStatemenData, AbapStatement } from './abap';
 
 type ThisOrArrayOfThis<T> = T | Array<T>;

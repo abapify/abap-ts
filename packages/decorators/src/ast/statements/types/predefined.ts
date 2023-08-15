@@ -23,4 +23,4 @@ export class PredefinedType extends BlockableMap<AbapType> {
   }
 }
 
-export type PredefinedTypeData = PredefinedType['data'];
+export type PredefinedTypeData = NonNullable<PredefinedType['data']>;
