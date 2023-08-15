@@ -7,6 +7,7 @@ interface InterfaceInput {
   public?: boolean;
   interfaces?: Array<string>;
   types?: TypesData;
+  data?: DataData;
 }
 
 export class Interface extends AbapStatement<InterfaceInput> {

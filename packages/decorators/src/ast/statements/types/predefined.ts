@@ -13,13 +13,18 @@ interface AbapType {
 export type PredefinedTypeInput = AbapType;
 
 export class PredefinedType extends BlockableMap<AbapType> {
-  override renderRecord(key: string, data: PredefinedTypeInput): string {
+  override renderData(data: PredefinedTypeInput): string {
     const { abap_type, length, decimals } = data;
-    return `types ${key} ${this.renderData({
+    // to provide the correct sequence for ABAPgen
+    return `${super.renderData({
       type: abap_type,
       length,
       decimals,
     })}`;
+  }
+
+  override renderRecord(key: string, data: PredefinedTypeInput): string {
+    return `types ${key} ${this.renderData(data)}`;
   }
 }
 
