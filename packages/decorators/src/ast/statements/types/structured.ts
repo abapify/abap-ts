@@ -1,3 +1,10 @@
+import { PredefinedTypeInput } from './predefined';
+import { ExistingTypeInput } from './existing';
+import { BlockableMap } from '../base/record';
+import { Types } from '../types';
+import { TableTypeInput } from './table';
+import { AbapStatement } from '../base/base';
+
 // 4. TYPES BEGIN OF struc_type.
 //      ...
 //      TYPES comp ...
@@ -5,14 +12,24 @@
 //      INCLUDE {TYPE|STRUCTURE} ...
 //      ...
 //   TYPES END OF struc_type.
+export interface IncludeTypeInput {
+  type?: string;
+  structure?: string;
+  as?: string;
+  suffix?: string;
+}
 
-import { BlockableMap } from '../base/record';
-import { Types } from '../types';
-
-export interface Component {}
+type ComponentType =
+  | ExistingTypeInput
+  | PredefinedTypeInput
+  | StructuredTypeInput
+  | TableTypeInput
+  | string;
+type Component = Record<string, ComponentType>;
+type Components = Component | Array<Component | { include: IncludeTypeInput }>;
 
 export interface StructuredTypeInput {
-  components: Array<Component>;
+  components: Components;
 }
 
 export class StructuredType extends BlockableMap<StructuredTypeInput> {
@@ -24,6 +41,23 @@ export class StructuredType extends BlockableMap<StructuredTypeInput> {
       types.render(),
       `types end of ${key}`,
     ].join('.\n');
+  }
+}
+
+export class IncludeType extends AbapStatement<IncludeTypeInput> {
+  override render(): string {
+    if (this.data) {
+      const { type, structure, as, suffix } = this.data;
+      return [
+        'include',
+        (type && `type ${type}`) || (structure && `structure ${structure}`),
+        as && `as ${as}`,
+        as && suffix && `renaming with suffix ${suffix}`,
+      ]
+        .filter((f) => f)
+        .join(' ');
+    }
+    throw 'Inlcude not supported';
   }
 }
 

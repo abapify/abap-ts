@@ -2,7 +2,11 @@ import { BlockableMap } from './base/record';
 import { statementTypes } from './base/statementTypes';
 import { ExistingType, ExistingTypeInput } from './types/existing';
 import { PredefinedType, PredefinedTypeInput } from './types/predefined';
-import { StructuredType, StructuredTypeInput } from './types/structured';
+import {
+  IncludeType,
+  StructuredType,
+  StructuredTypeInput,
+} from './types/structured';
 import { TableType, TableTypeInput } from './types/table';
 
 type TypeInput = any;
@@ -11,6 +15,9 @@ export class Types extends BlockableMap<TypeInput> {
   static override readonly type = statementTypes.types;
   statement = statementTypes.types;
   override renderRecord(key: string, data: any): string {
+    if (key === 'include') {
+      return new IncludeType(data).render();
+    }
     if (typeof data === 'string') {
       return super.renderData({ types: { [key]: { type: data } } });
     }
