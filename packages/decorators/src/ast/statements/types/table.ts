@@ -8,7 +8,7 @@ import { BlockableMap } from '../base/record';
 //           [tabkeys]
 //                  [INITIAL SIZE n].
 
-interface TableTypeInput {
+export interface TableTypeInput {
   type?: {
     tabkind?: tabkind;
     table: { of: string | { ref: { to: string } } };
