@@ -16,7 +16,6 @@ export interface StructuredTypeInput {
 }
 
 export class StructuredType extends BlockableMap<StructuredTypeInput> {
-  override statement = '';
   override renderRecord(key: string, data: StructuredTypeInput): string {
     const types = new Types(data.components);
 

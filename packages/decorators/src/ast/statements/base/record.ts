@@ -12,8 +12,6 @@ export abstract class BlockableMap<
   R = Record<string, T>,
   P = Partial<R>
 > extends AbapStatement<ThisOrArrayOfThis<R>> {
-  abstract statement: string;
-
   abstract renderRecord(key: string, data: T): string;
 
   #renderRecord(data: P): string {
@@ -28,8 +26,6 @@ export abstract class BlockableMap<
   }
 
   render() {
-    const statement = this.statement;
-
     //this Object can be array of records
     //block becomes single only if 1 item defined
     const records: P[] = [];
@@ -50,9 +46,5 @@ export abstract class BlockableMap<
     }
 
     return records.map((r) => this.#renderRecord(r)).join('.\n');
-
-    // return statement
-    //   .concat(statement ? (records.length > 1 ? ': ' : ' ') : '')
-    //   .concat(records.map((r) => this.#renderRecord(r)).join(',\n'));
   }
 }

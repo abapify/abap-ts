@@ -1,5 +1,4 @@
 import { BlockableMap } from '../base/record';
-import { statementTypes } from '../base/statementTypes';
 
 // Syntax
 // TYPES { {dtype[(len)] TYPE abap_type [DECIMALS dec]}
@@ -14,10 +13,9 @@ interface AbapType {
 export type PredefinedTypeInput = AbapType;
 
 export class PredefinedType extends BlockableMap<AbapType> {
-  override statement = statementTypes.types;
   override renderRecord(key: string, data: PredefinedTypeInput): string {
     const { abap_type, length, decimals } = data;
-    return `${this.statement} ${key} ${this.renderData({
+    return `types ${key} ${this.renderData({
       type: abap_type,
       length,
       decimals,

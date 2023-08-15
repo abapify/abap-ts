@@ -1,7 +1,6 @@
 // Syntax
 
 import { BlockableMap } from '../base/record';
-import { statementTypes } from '../base/statementTypes';
 
 // existing type/data
 // TYPES dtype { {TYPE [LINE OF] type}
@@ -25,9 +24,8 @@ export type TypeLike = Partial<Record<'type' | 'like', LineOf | string>>;
 export type ExistingTypeInput = TypeLike;
 
 export class ExistingType extends BlockableMap<ExistingTypeInput> {
-  override statement = statementTypes.types;
   override renderRecord(key: string, data: ExistingTypeInput): string {
-    return `${this.statement} ${key} ${this.renderData(data)}`;
+    return `types ${key} ${this.renderData(data)}`;
   }
 }
 
