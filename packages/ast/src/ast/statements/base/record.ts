@@ -19,9 +19,10 @@ export abstract class BlockableMap<
         .map(([key, data]) => this.renderRecord(key, data as T))
         .join(',/n');
     }
+    throw 'Not supported';
 
     // fallback
-    return this.renderData(data);
+    // return this.renderData(data);
   }
 
   render() {

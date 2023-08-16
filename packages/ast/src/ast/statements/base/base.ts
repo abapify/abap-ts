@@ -1,21 +1,17 @@
-import { statementTypes } from './statementTypes';
-import abapgen from 'packages/decorators/src/abapgen/abpagen';
+import abapgen from '../../../abapgen/abpagen';
 
 export type AbapStatemenData = unknown;
 
 export abstract class AbapStatement<DataType extends AbapStatemenData> {
-  static type: statementTypes;
-  #data?: DataType;
+  #data: DataType;
   public get data() {
     return this.#data;
   }
   constructor(data: DataType) {
-    if (data) {
-      this.#data = data;
-    }
+    this.#data = data;
   }
   abstract render(): string;
-  renderData(data: unknown): string {
+  protected renderData(data: AbapStatemenData) {
     return abapgen(data);
   }
 }

@@ -1,6 +1,6 @@
 // Syntax
 
-import { BlockableMap } from '../base/record';
+import { AbapStatement } from '../base/base';
 
 // TYPES table_type { {TYPE tabkind OF [REF TO] type}
 //                    | {LIKE tabkind OF dobj} }
@@ -20,39 +20,32 @@ export interface TableTypeInput {
   };
 }
 
-export class TableType extends BlockableMap<TableTypeInput> {
-  override renderRecord(key: string, data: TableTypeInput): string {
-    if (data) {
-      const { type, like } = data;
-      if (data.type) {
-        return [
-          'types',
-          key,
-          'type',
-          type?.tabkind,
-          'table',
-          this.renderData({
-            of: type?.table.of,
-          }),
-          this.#renderWith(data.type.with),
-        ]
-          .filter((f) => f)
-          .join(' ');
-      }
-      if (data.like) {
-        return [
-          'types',
-          key,
-          'like',
-          type?.tabkind,
-          'table',
-          like?.table.of,
-          this.#renderWith(data.like.with),
-        ]
-          .filter((f) => f)
-          .join(' ');
-      }
-      // return ["types", key, type?.of && [type.tabkind].flat(1)].join(' ')
+export class TableType extends AbapStatement<TableTypeInput> {
+  override render(): string {
+    // if (this.data) {
+    const { type, like } = this.data;
+    if (type) {
+      return [
+        'type',
+        type?.tabkind,
+        'table',
+        this.renderData({
+          of: type?.table.of,
+        }),
+        this.#renderWith(type.with),
+      ]
+        .filter((f) => f)
+        .join(' ');
+    } else if (like) {
+      return [
+        'like',
+        like?.tabkind,
+        'table',
+        like?.table.of,
+        this.#renderWith(like.with),
+      ]
+        .filter((f) => f)
+        .join(' ');
     }
     throw 'Table type not supported';
   }

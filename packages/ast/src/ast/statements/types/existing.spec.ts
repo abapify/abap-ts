@@ -1,21 +1,12 @@
 import { ExistingType, ExistingTypeData } from './existing';
 
 export const tests: [ExistingTypeData, string][] = [
-  [{ t_string: { type: 'string' } }, 'types t_string type string'],
-  [
-    { t_string: { type: { line: { of: 'STRING_TT' } } } },
-    'types t_string type line of STRING_TT',
-  ],
-  [{ fork: { like: 'master' } }, 'types fork like master'],
-  [
-    { pointer: { type: { ref: { to: 'data' } } } },
-    'types pointer type ref to data',
-  ],
-  [{ pointer: { type: 'ref to data' } }, 'types pointer type ref to data'],
-  [
-    { pointer: { like: { ref: { to: 'data_ref' } } } },
-    'types pointer like ref to data_ref',
-  ],
+  [{ type: 'string' }, 'type string'],
+  [{ type: { line: { of: 'STRING_TT' } } }, 'type line of STRING_TT'],
+  [{ like: 'master' }, 'like master'],
+  [{ type: { ref: { to: 'data' } } }, 'type ref to data'],
+  [{ type: 'ref to data' }, 'type ref to data'],
+  [{ like: { ref: { to: 'data_ref' } } }, 'like ref to data_ref'],
 ];
 
 test('Existing type', () => {

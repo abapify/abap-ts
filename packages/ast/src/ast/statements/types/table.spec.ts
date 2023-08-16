@@ -3,39 +3,34 @@ import { TableType, TableTypeData } from './table';
 export const tests: [TableTypeData, string][] = [
   [
     {
-      t_string: {
-        type: {
-          table: { of: 'string' },
-        },
+      type: {
+        table: { of: 'string' },
       },
     },
-    'types t_string type table of string with empty key',
+
+    'type table of string with empty key',
   ],
 
   [
     {
-      t_string: {
-        type: {
-          table: { of: 'string' },
-          with: 'default key',
-        },
+      type: {
+        table: { of: 'string' },
+        with: 'default key',
       },
     },
-    'types t_string type table of string with default key',
+    'type table of string with default key',
   ],
   [
     {
-      t_string: {
-        type: {
-          table: { of: 'string' },
-          with: {
-            unique: true,
-            default: true,
-          },
+      type: {
+        table: { of: 'string' },
+        with: {
+          unique: true,
+          default: true,
         },
       },
     },
-    'types t_string type table of string with unique default key',
+    'type table of string with unique default key',
   ],
 ];
 

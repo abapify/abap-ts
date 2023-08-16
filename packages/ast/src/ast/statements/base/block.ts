@@ -13,7 +13,7 @@ export abstract class BlockableStatement<
     const statement = this.statement;
     if (Array.isArray(this.data)) {
       return `${statement}:\n`.concat(
-        this.data.map((d) => this.renderData(d)).join(',\n')
+        this.data.map((d) => super.renderData(d)).join(',\n')
       );
     } else if (this.data) {
       return `${statement} ${this.renderData(this.data)}`;

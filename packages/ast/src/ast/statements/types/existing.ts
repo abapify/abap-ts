@@ -1,6 +1,6 @@
 // Syntax
 
-import { BlockableMap } from '../base/record';
+import { AbapStatement } from '../base/base';
 
 // existing type/data
 // TYPES dtype { {TYPE [LINE OF] type}
@@ -19,14 +19,20 @@ interface LineOf {
   };
 }
 
-export type TypeLike = Partial<Record<'type' | 'like', LineOf | string>>;
+export type ExistingTypeInput = Partial<
+  Record<'type' | 'like', LineOf | string>
+>;
 
-export type ExistingTypeInput = TypeLike;
-
-export class ExistingType extends BlockableMap<ExistingTypeInput> {
-  override renderRecord(key: string, data: ExistingTypeInput): string {
-    return `types ${key} ${this.renderData(data)}`;
+export class ExistingType extends AbapStatement<ExistingTypeInput> {
+  override render(): string {
+    const { type, like } = this.data;
+    if (type) {
+      return this.renderData({ type });
+    } else if (like) {
+      return this.renderData({ like });
+    }
+    throw 'Not supported';
   }
 }
 
-export type ExistingTypeData = NonNullable<ExistingType['data']>;
+export type ExistingTypeData = ExistingType['data'];

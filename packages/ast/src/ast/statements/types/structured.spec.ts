@@ -3,14 +3,13 @@ import { StructuredType, StructuredTypeData } from './structured';
 export const tests: [StructuredTypeData, string][] = [
   [
     {
-      struc_type: {
-        components: [
-          { t_string: { abap_type: 'string' }, x_flag: 'abap_bool' },
-          { include: { type: 'test_ts' } },
-          { include: { type: 'test_ts2', as: 'test', suffix: '_t' } },
-          { include: { structure: 'ls_test' } },
-        ],
-      },
+      name: 'struc_type',
+      components: [
+        { t_string: { abap_type: 'string' }, x_flag: 'abap_bool' },
+        { include: { type: 'test_ts' } },
+        { include: { type: 'test_ts2', as: 'test', suffix: '_t' } },
+        { include: { structure: 'ls_test' } },
+      ],
     },
 
     [

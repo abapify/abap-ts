@@ -1,4 +1,3 @@
-import { BlockableMap } from '../base/record';
 import { Types, TypesInput } from '../types';
 import { AbapStatement } from '../base/base';
 
@@ -21,17 +20,20 @@ type Component = Record<string, ComponentType>;
 type Components = Component | Array<Component | { include: IncludeTypeInput }>;
 
 export interface StructuredTypeInput {
+  name?: string;
   components: Components;
 }
 
-export class StructuredType extends BlockableMap<StructuredTypeInput> {
-  override renderRecord(key: string, data: StructuredTypeInput): string {
-    const types = new Types(data.components);
+export class StructuredType extends AbapStatement<StructuredTypeInput> {
+  override render(): string {
+    const { name, components } = this.data;
+
+    const types = new Types(components);
 
     return [
-      `types begin of ${key}`,
+      `types begin of ${name}`,
       types.render(),
-      `types end of ${key}`,
+      `types end of ${name}`,
     ].join('.\n');
   }
 }
@@ -53,4 +55,4 @@ export class IncludeType extends AbapStatement<IncludeTypeInput> {
   }
 }
 
-export type StructuredTypeData = NonNullable<StructuredType['data']>;
+export type StructuredTypeData = StructuredType['data'];
