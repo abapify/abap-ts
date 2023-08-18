@@ -53,7 +53,7 @@ export class Code {
     this.#chunks.push({ chunk, format });
     return this;
   }
-  format(config?: FormatConfig): Array<string> {
+  render(config?: FormatConfig): Array<string> {
     const lines: Array<string> = [];
 
     const formatConfig = config || this.#config?.format;
@@ -65,7 +65,7 @@ export class Code {
         if (typeof line === 'string') {
           chunk_lines.push(line);
         } else if (line instanceof Code) {
-          chunk_lines.push(...line.format(formatConfig));
+          chunk_lines.push(...line.render(formatConfig));
         }
       }
 
