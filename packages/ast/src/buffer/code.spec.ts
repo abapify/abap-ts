@@ -1,4 +1,4 @@
-import { Code } from './code';
+import { Code, IndentType } from './code';
 
 test('test', () => {
   const code = new Code();
@@ -21,4 +21,9 @@ test('test', () => {
 
   code_unit.write('G', { indent: 1 });
   expect(code.format()).toEqual(['A', 'B', 'C', 'D', '\tE', '\tF', '\t\tG']);
+
+  const space_code = new Code({
+    format: { indentType: IndentType.space },
+  }).write(code);
+  expect(space_code.format()).toEqual(['A', 'B', 'C', 'D', ' E', ' F', '  G']);
 });

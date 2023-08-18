@@ -1,8 +1,19 @@
 import { cache } from './cache';
 
-enum IndentType {
+export enum IndentType {
   tab = '\t',
   space = ' ',
+}
+
+const IndentCache = {
+  [IndentType.tab]: cacheIndent(IndentType.tab),
+  [IndentType.space]: cacheIndent(IndentType.space),
+};
+
+function cacheIndent(indentType: IndentType) {
+  return cache((indent?: number) =>
+    Array(number(indent)).fill(indentType).join('')
+  );
 }
 
 interface FormatConfig {
@@ -26,19 +37,26 @@ interface CodeConfig {
 
 export class Code {
   #chunks = [] as Array<{ chunk: ChunkType; format?: CodeFormat }>;
-  #indent: (number?: number) => string;
+
+  #config?: CodeConfig;
+  #indentSymbol: IndentType;
 
   constructor(config?: CodeConfig) {
-    const indentSymbol = config?.format?.indentType || IndentType.tab;
-    this.#indent = cache((indent?: number) =>
-      Array(number(indent)).fill(indentSymbol).join('')
-    );
+    this.#config = config;
+    this.#indentSymbol = config?.format?.indentType || IndentType.tab;
   }
+  #indent(indent?: number, config?: FormatConfig) {
+    return IndentCache[config?.indentType || this.#indentSymbol](indent);
+  }
+
   write(chunk: ChunkType, format?: CodeFormat) {
     this.#chunks.push({ chunk, format });
+    return this;
   }
-  format(): Array<string> {
+  format(config?: FormatConfig): Array<string> {
     const lines: Array<string> = [];
+
+    const formatConfig = config || this.#config?.format;
 
     for (const { chunk, format } of this.#chunks) {
       const chunk_lines: Array<string> = [];
@@ -47,12 +65,14 @@ export class Code {
         if (typeof line === 'string') {
           chunk_lines.push(line);
         } else if (line instanceof Code) {
-          chunk_lines.push(...line.format());
+          chunk_lines.push(...line.format(formatConfig));
         }
       }
 
       lines.push(
-        ...chunk_lines.map((line) => this.#indent(format?.indent).concat(line))
+        ...chunk_lines.map((line) =>
+          this.#indent(format?.indent, formatConfig).concat(line)
+        )
       );
     }
 
