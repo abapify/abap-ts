@@ -3,6 +3,7 @@ export enum statementTypes {
   skip = 'skip',
   types = 'types',
   interface = 'interface',
+  data = 'data',
 }
 
 export type statementType = keyof typeof statementTypes;
