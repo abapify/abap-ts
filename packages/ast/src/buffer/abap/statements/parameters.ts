@@ -1,4 +1,4 @@
-import { AbapCode } from '../code';
+import { AbapCode } from './base/code';
 
 // Syntax
 

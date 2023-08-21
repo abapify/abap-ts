@@ -1,4 +1,4 @@
-import { CodeFormat } from '../common/code';
+import { CodeFormat } from './common/code';
 import { AbapCodeBase, Chunks } from './base';
 import { AbapCodeBlock } from './block';
 export * from './base';

@@ -1,4 +1,4 @@
-import { Code, IndentType } from '../common/code';
+import { Code, CodeFormat, IndentType } from './common/code';
 
 export type Chunks = Array<string | AbapCodeBase>;
 
