@@ -1,4 +1,4 @@
-import { AbapCode } from './base/code';
+import { AbapCode } from './base/abap';
 import { Parameters, ParametersInput } from './parameters';
 
 export interface ProgramInput {

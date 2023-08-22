@@ -1,4 +1,4 @@
-import abapgen from '../../../abapgen/abpagen';
+import abapgen from '../../../abapgen/abapgen';
 
 export type AbapStatemenData = unknown;
 

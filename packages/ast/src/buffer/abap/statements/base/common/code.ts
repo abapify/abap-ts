@@ -6,20 +6,18 @@ interface FormatConfig {
   indentType: IndentType;
 }
 
-type ThisOrArray<T> = T | Array<T>;
-type ChunkType = ThisOrArray<string | Code>;
-
 export interface CodeFormat {
   indent?: number;
   separator?: string;
   end?: string;
+  join?: boolean;
 }
 
 interface CodeConfig {
   format?: FormatConfig;
 }
 
-export class Code {
+export class Code<ChunkType extends unknown> {
   #chunks = [] as Array<{
     chunk: ChunkType;
     format?: CodeFormat;
@@ -61,30 +59,41 @@ export class Code {
           }
         }
 
-        // const separator =
-        // index + 1 < array.length format?.separator && index + 1 < array.length
-        //     ? format?.separator
-        //     : '';
+        let code_lines: Array<string>;
 
         if (typeof line === 'string') {
-          chunk_lines.push(separator ? line.concat(separator) : line);
+          code_lines = [line];
+          // chunk_lines.push(separator ? line.concat(separator) : line);
         } else if (line instanceof Code) {
-          const code_lines = line.render(formatConfig);
-          if (separator && code_lines.length) {
-            code_lines[code_lines.length - 1] =
-              code_lines[code_lines.length - 1].concat(separator);
-          }
-          chunk_lines.push(...code_lines);
+          code_lines = line.render(formatConfig);
+        } else {
+          code_lines = this.renderData(line);
         }
+
+        if (separator && code_lines.length) {
+          code_lines[code_lines.length - 1] =
+            code_lines[code_lines.length - 1].concat(separator);
+        }
+        chunk_lines.push(...code_lines);
       });
 
-      lines.push(
-        ...chunk_lines.map((line) =>
-          this.#indent(format?.indent, formatConfig).concat(line)
-        )
+      const formatted_lines = chunk_lines.map((line) =>
+        this.#indent(format?.indent, formatConfig).concat(line)
       );
+
+      if (format?.join) {
+        lines.push(formatted_lines.join(' '));
+      } else {
+        lines.push(...formatted_lines);
+      }
     }
 
     return lines;
+  }
+  protected renderData(data: ChunkType): string[] {
+    throw 'Method not supported. Must be redefined in a child class.';
+  }
+  get size() {
+    return this.#chunks.length;
   }
 }
